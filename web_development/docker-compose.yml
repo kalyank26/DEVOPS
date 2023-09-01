@@ -6,14 +6,15 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:80"
+    volumes:
+      - ./src:/var/www/html  # Replace 'src' with your actual source code directory
+
   db:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: 1234    
-      mysqli_ROOT_PASSWORD: 1234
-      mysqli_DATABASE: kalyan
-      mysqli_USER: kalyan
-      mysqli_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: kalyan
+      MYSQL_USER: kalyan
+      MYSQL_PASSWORD: 1234
     volumes:
       - ./mydb.sql:/docker-entrypoint-initdb.d/mydb.sql
-      

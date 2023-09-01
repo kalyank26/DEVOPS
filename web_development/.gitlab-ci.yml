@@ -1,0 +1,33 @@
+# .gitlab-ci.yml
+
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  MYSQL_DATABASE: kalyan
+  MYSQL_ROOT_PASSWORD: 1234
+
+services:
+  - name: mysql:5.7
+    alias: db
+
+before_script:
+  - docker build -t my-php-app .
+
+build:
+  stage: build
+  script:
+    - docker-compose up -d
+
+test:
+  stage: test
+  script:
+    - docker exec -it my-php-app php -f /var/www/html/test.php
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploy to production..."
+    # Add deployment steps here
